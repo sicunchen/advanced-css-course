@@ -6,3 +6,84 @@ Medium green: #55c57a
 Dark green: #28b485
 
 */
+/* universial browser reset (browsers add default margin and padding to elements) */
+* {
+  margin: 0;
+  padding: 0;
+  /* by default, the width and height of an element is calculated like this:
+  width+padding+border=actual width
+  height+padding+border=actual height
+
+  Setting box-sizing to border-box allows us to size elements in a more intuitive way. ;
+  */
+  box-sizing: border-box;
+}
+/* using inheritance to set font property. The body element is basically the parent element of all other elements. 
+Doing this way is more efficient than setting the font in universial selector*/
+body {
+  font-family: "Lato", sans-serif;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 1.7;
+  color: #777;
+  padding: 30px;
+}
+
+.header {
+  height: 95vh;
+  /* gradient on top of the image */
+  background-image: linear-gradient(
+      to right bottom,
+      rgba(126, 213, 111, 0.8),
+      rgba(40, 180, 131, 0.8)
+    ),
+    url(../img/hero.jpg);
+  /* the background-size property sets the size of the element's background image.  
+  https://developer.mozilla.org/en-US/docs/Web/CSS/background-size
+  */
+  background-size: cover;
+  /* the background-position property allows you to move a background image (or gradient) around within its container */
+  background-position: top;
+  /* specify four coords for the polygon
+  https://css-tricks.com/clipping-masking-css/
+  https://css-tricks.com/almanac/properties/c/clip-path/
+  */
+  clip-path: polygon(0 0, 100% 0, 100% 75%, 0 100%);
+  position: relative;
+}
+
+.logo-box {
+  /* absolute positioning */
+  position: absolute;
+  top: 40px;
+  left: 40px;
+}
+
+.logo {
+  /* the width will be automatically configured by the browser */
+  height: 35px;
+}
+.text-box {
+  position: absolute;
+  top: 40%;
+  left: 50%;
+  /* translate half of the element's width and height (left and top) */
+  transform: translate(-50%, -50%);
+}
+.heading-primary {
+  color: #fff;
+  text-transform: uppercase;
+}
+
+.heading-primary-main {
+  display: block;
+  font-size: 60px;
+  font-weight: 400;
+  letter-spacing: 35px;
+}
+.heading-primary-sub {
+  display: block;
+  font-weight: 700;
+  font-size: 20px;
+  letter-spacing: 17.4px;
+}
