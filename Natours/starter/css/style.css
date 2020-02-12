@@ -69,10 +69,15 @@ body {
   left: 50%;
   /* translate half of the element's width and height (left and top) */
   transform: translate(-50%, -50%);
+  /*  this is for centering the button(anchor element)*/
+  text-align: center;
 }
 .heading-primary {
   color: #fff;
   text-transform: uppercase;
+  /* prevent the shaky animation*/
+  backface-visibility: hidden;
+  margin-bottom: 60px;
 }
 
 .heading-primary-main {
@@ -80,10 +85,120 @@ body {
   font-size: 60px;
   font-weight: 400;
   letter-spacing: 35px;
+  animation-name: moveInLeft;
+  animation-duration: 1s;
+  /* starts fast and ends slowly */
+  animation-timing-function: ease-out;
 }
 .heading-primary-sub {
   display: block;
   font-weight: 700;
   font-size: 20px;
   letter-spacing: 17.4px;
+  /* shorthand animation property */
+  animation: moveInRight 1s ease-out;
+}
+/* 2 ways to create animations: define a keyframe or use a transition property */
+@keyframes moveInLeft {
+  0% {
+    opacity: 0;
+    transform: translateX(-100px);
+  }
+
+  80% {
+    transform: translateX(10px);
+  }
+  100% {
+    opacity: 1;
+    /* the element is at where it's currently at */
+    transform: translate(0);
+  }
+}
+
+@keyframes moveInRight {
+  0% {
+    opacity: 0;
+    transform: translateX(100px);
+  }
+  80% {
+    transform: translateX(-10px);
+  }
+  100% {
+    opacity: 1;
+    /* the element is at where it's currently at */
+    transform: translate(0);
+  }
+}
+@keyframes moveInButton {
+  0% {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+/* :link is a special state for the anchor element. Here we want the unvisited and visited states to be the same*/
+.btn:link,
+.btn:visited {
+  text-transform: uppercase;
+  text-decoration: none;
+  padding: 15px 40px;
+  display: inline-block;
+  border-radius: 100px;
+  /* all the properties are allowed to be animated. Transition property needs to be set on the INITIAL state*/
+  transition: all 0.2s;
+  position: relative;
+}
+
+.btn-animated {
+  /* animation name, duration, timing function, delay */
+  animation: moveInButton 0.5s ease-out 0.75s;
+  /* automatically apply the 0% properties before the animation starts */
+  animation-fill-mode: backwards;
+}
+
+.btn-white {
+  background-color: #fff;
+  color: #777;
+}
+.btn:hover {
+  transform: translateY(-3px);
+  /*shadow x y blur color*/
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+}
+
+/* active is when the anchor tag is clicked. Here the transform property creates a bouncy effect when user clicks the button */
+.btn:active {
+  transform: translateY(-1px);
+  /* when the user clicks the button the shadow goes down a little bit and becomes less blurry to create the "pushed down" effect*/
+  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+}
+
+.btn::after {
+  /* after pseudo elements must have content and display properties */
+  content: "";
+  display: inline-block;
+  /* the after pseudo element has the exact same dimension like the parent element */
+  height: 100%;
+  width: 100%;
+  border-radius: 100px;
+  /*this is for putting the pseudo after element BEHIND the parent element. The button element also needs a relative position to be the pseudo element's reference  */
+  position: absolute;
+  top: 0;
+  left: 0;
+  /* behind the button */
+  z-index: -1;
+  /*  Transition property needs to be set on the INITIAL state. This is the initial state for the pseudo element*/
+  transition: all 0.2s;
+}
+
+.btn-white::after {
+  background-color: #fff;
+}
+/* when user hovers the button, the pseudo after element hiding behind the parent element grows bigger and looks like a ripple */
+.btn:hover::after {
+  transform: scaleX(1.4) scaleY(1.6);
+  opacity: 0;
 }
